@@ -29,6 +29,6 @@ server.get('/contributions', function(req, res, next) {
 			// send response to client
 			res.send(200, result);
 			return next();
-		},
+		}
 	);
 });

@@ -99,7 +99,7 @@ server.post('/likes', function(req, res, next) {
 							cb(err);
 						}
 						cb(null, like, upload);
-					},
+					}
 				);
 			},
 			// send back in response
@@ -115,10 +115,10 @@ server.post('/likes', function(req, res, next) {
 							{ id: like.id },
 							{ user_id: upload.user_id },
 							{ likes: count[0].total },
-							data,
+							data
 						);
 						cb(null, result);
-					},
+					}
 				);
 			},
 
@@ -131,7 +131,7 @@ server.post('/likes', function(req, res, next) {
 							return cb(err);
 						}
 						cb(null, Object.assign(result, { to: row[0].user_id }));
-					},
+					}
 				);
 			},
 
@@ -140,7 +140,7 @@ server.post('/likes', function(req, res, next) {
 				// instantiate a new client (server side)
 				var streamClient = stream.connect(
 					config.stream.key,
-					config.stream.secret,
+					config.stream.secret
 				);
 
 				// instantiate a feed using feed class 'user' and the user id from the database
@@ -153,7 +153,7 @@ server.post('/likes', function(req, res, next) {
 					object: `upload:${data.upload_id}`,
 					foreign_id: `like:${result.id}`,
 					time: data['created_at'],
-					to: [`notification:${result.to}`],
+					to: [`notification:${result.to}`]
 				};
 
 				// add activity to the feed
@@ -182,7 +182,7 @@ server.post('/likes', function(req, res, next) {
 			// send response to client
 			res.send(201, result);
 			return next();
-		},
+		}
 	);
 });
 
@@ -214,7 +214,7 @@ server.del('/likes', function(req, res, next) {
 						}
 
 						cb(null, like);
-					},
+					}
 				);
 			},
 
@@ -232,7 +232,7 @@ server.del('/likes', function(req, res, next) {
 						var result = Object.assign(like, count);
 
 						cb(null, result);
-					},
+					}
 				);
 			},
 
@@ -251,6 +251,6 @@ server.del('/likes', function(req, res, next) {
 			// send response to client
 			res.send(200, result[0]);
 			return next();
-		},
+		}
 	);
 });

@@ -73,7 +73,7 @@ server.get('/users/:id', function(req, res, next) {
 			params.id,
 			params.id,
 			params.id,
-			params.id,
+			params.id
 		];
 
 		// select user based off of provided fb_uid or email
@@ -139,7 +139,7 @@ server.post('/users', function(req, res, next) {
 		xfbml: true,
 		version: 'v2.6',
 		status: true,
-		cookie: true,
+		cookie: true
 	};
 	var fb = new FB.Facebook(options);
 	fb.setAccessToken(accessToken);
@@ -153,7 +153,7 @@ server.post('/users', function(req, res, next) {
 				{ fields: 'id,name,email, first_name, last_name' },
 				function(facebookUserData) {
 					cb(null, facebookUserData);
-				},
+				}
 			);
 		},
 
@@ -177,17 +177,17 @@ server.post('/users', function(req, res, next) {
 					// instantiate a new client (server side)
 					var streamClient = stream.connect(
 						config.stream.key,
-						config.stream.secret,
+						config.stream.secret
 					);
 
 					// generate jwt
 					var jwtToken = jwt.sign(
 						{
 							request: {
-								email: data.email,
+								email: data.email
 							},
 						},
-						config.jwt.secret,
+						config.jwt.secret
 					);
 
 					// if user exists, return result
@@ -199,16 +199,16 @@ server.post('/users', function(req, res, next) {
 							timeline: {
 								flat: streamClient.getReadOnlyToken(
 									'timeline_flat',
-									userId,
+									userId
 								),
 								aggregated: streamClient.getReadOnlyToken(
 									'timeline_aggregrated',
-									userId,
+									userId
 								),
 							},
 							notification: streamClient.getReadOnlyToken(
 								'notification',
-								userId,
+								userId
 							),
 						};
 
@@ -217,7 +217,7 @@ server.post('/users', function(req, res, next) {
 							{},
 							result[0],
 							{ tokens: tokens },
-							{ jwt: jwtToken },
+							{ jwt: jwtToken }
 						);
 
 						// send response to client
@@ -228,7 +228,7 @@ server.post('/users', function(req, res, next) {
 					// execute query
 					db.query('INSERT INTO users SET ?', data, function(
 						err,
-						result,
+						result
 					) {
 						if (err) {
 							log.error(err);
@@ -240,13 +240,13 @@ server.post('/users', function(req, res, next) {
 							{},
 							{ id: result.insertId },
 							data,
-							tokens,
+							tokens
 						);
 
 						// initialize algolia
 						var algolia = algoliaSearch(
 							config.algolia.appId,
-							config.algolia.apiKey,
+							config.algolia.apiKey
 						);
 
 						// initialize algoia index
@@ -268,13 +268,13 @@ server.post('/users', function(req, res, next) {
 								// instantiate a new client (server side)
 								var streamClient = stream.connect(
 									config.stream.key,
-									config.stream.secret,
+									config.stream.secret
 								);
 
 								// instantiate a feed using feed class 'user' and the user id from the database
 								var userFeed = streamClient.feed(
 									'user',
-									userId,
+									userId
 								);
 
 								// build activity object for stream feed
@@ -284,20 +284,20 @@ server.post('/users', function(req, res, next) {
 									object: `user:${1}`,
 									foreign_id: `follow:${userId}`,
 									time: data['created_at'],
-									to: [`notification:${1}`],
+									to: [`notification:${1}`]
 								};
 
 								// instantiate a feed using feed class 'timeline_flat' and the user id from the database
 								var timeline = streamClient.feed(
 									'timeline_flat',
-									userId,
+									userId
 								);
 								timeline.follow('user_posts', 1);
 
 								// instantiate a feed using feed class 'timeline_aggregated' and the user id from the database
 								var timelineAggregated = streamClient.feed(
 									'timeline_aggregated',
-									userId,
+									userId
 								);
 								timelineAggregated.follow('user', 1);
 
@@ -313,16 +313,16 @@ server.post('/users', function(req, res, next) {
 										log.error(reason);
 										return next(
 											new restify.InternalError(
-												reason.error,
-											),
+												reason.error
+											)
 										);
 									});
-							},
+							}
 						);
 					});
-				},
+				}
 			);
-		},
+		}
 	]);
 });
 
@@ -339,7 +339,7 @@ server.del('/users/:user_id', function(req, res, next) {
 
 	db.query('DELETE FROM users WHERE id = ?', [params.user_id], function(
 		err,
-		result,
+		result
 	) {
 		// catch all errors
 		if (err) {

@@ -80,7 +80,7 @@ server.post('/comments', function(req, res, next) {
 				// execute query with data as sanitized values
 				db.query('INSERT INTO comments SET ?', data, function(
 					err,
-					comment,
+					comment
 				) {
 					if (err) {
 						cb(err);
@@ -107,11 +107,11 @@ server.post('/comments', function(req, res, next) {
 						var result = Object.assign(
 							{ author_id: upload[0].user_id },
 							comment,
-							upload,
+							upload
 						);
 
 						cb(null, result);
-					},
+					}
 				);
 			},
 
@@ -120,7 +120,7 @@ server.post('/comments', function(req, res, next) {
 				// instantiate a new client (server side)
 				var streamClient = stream.connect(
 					config.stream.key,
-					config.stream.secret,
+					config.stream.secret
 				);
 
 				// instantiate a feed using feed class 'user' and the user id from the database
@@ -134,7 +134,7 @@ server.post('/comments', function(req, res, next) {
 					foreign_id: `comment:${result.id}`,
 					time: result.created_at,
 					comment: data.comment,
-					to: [`notification:${result.author_id}`],
+					to: [`notification:${result.author_id}`]
 				};
 
 				// add activity to the feed
@@ -163,6 +163,6 @@ server.post('/comments', function(req, res, next) {
 			// send response to client
 			res.send(201, result);
 			return next();
-		},
+		}
 	);
 });

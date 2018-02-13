@@ -27,13 +27,13 @@ server.get('/incoming-activity', function(req, res, next) {
 				// instantiate a new client (server side)
 				var streamClient = stream.connect(
 					config.stream.key,
-					config.stream.secret,
+					config.stream.secret
 				);
 
 				// instantiate a feed using feed class 'notification' and user id from params
 				var notificationFeed = streamClient.feed(
 					'notification',
-					params.user_id,
+					params.user_id
 				);
 
 				cb(null, notificationFeed);
@@ -65,7 +65,7 @@ server.get('/incoming-activity', function(req, res, next) {
                     */
 
 						var references = streamUtils.referencesFromActivities(
-							stream.results,
+							stream.results
 						);
 						streamUtils.loadReferencedObjects(
 							references,
@@ -73,11 +73,11 @@ server.get('/incoming-activity', function(req, res, next) {
 							function(referencedObjects) {
 								streamUtils.enrichActivities(
 									stream.results,
-									referencedObjects,
+									referencedObjects
 								);
 								// return the enriched activities
 								cb(null, stream.results);
-							},
+							}
 						);
 					})
 					.catch(function(error) {
@@ -100,6 +100,6 @@ server.get('/incoming-activity', function(req, res, next) {
 			// send response to client
 			res.send(200, result);
 			return next();
-		},
+		}
 	);
 });

@@ -100,12 +100,12 @@ function loadReferencedObjects(references, userId, callback) {
 						referencedObject[query.name][result.id] = result;
 					});
 					cb();
-				},
+				}
 			);
 		},
 		function done() {
 			callback(referencedObject);
-		},
+		}
 	);
 }
 
@@ -140,5 +140,5 @@ function enrichActivities(activitiesOrNotifications, refencedObjects) {
 module.exports = {
 	referencesFromActivities: referencesFromActivities,
 	loadReferencedObjects: loadReferencedObjects,
-	enrichActivities: enrichActivities,
+	enrichActivities: enrichActivities
 };

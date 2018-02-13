@@ -33,7 +33,7 @@ server.post('/followers', function(req, res, next) {
 		// instantiate a new client (server side)
 		var streamClient = stream.connect(
 			config.stream.key,
-			config.stream.secret,
+			config.stream.secret
 		);
 
 		// instantiate a feed using feed class 'user' and the user id from the database
@@ -46,7 +46,7 @@ server.post('/followers', function(req, res, next) {
 			object: `user:${data.follower_id}`,
 			foreign_id: `follow:${result.insertId}`,
 			time: data['created_at'],
-			to: [`notification:${data.follower_id}`],
+			to: [`notification:${data.follower_id}`]
 		};
 
 		// instantiate a feed using feed class 'timeline_flat' and the user id from the database
@@ -56,7 +56,7 @@ server.post('/followers', function(req, res, next) {
 		// instantiate a feed using feed class 'timeline_aggregated' and the user id from the database
 		var timelineAggregated = streamClient.feed(
 			'timeline_aggregated',
-			data.user_id,
+			data.user_id
 		);
 		timelineAggregated.follow('user', data.follower_id);
 
@@ -98,14 +98,14 @@ server.del('/followers', function(req, res, next) {
 		// instantiate a new client (server side)
 		var streamClient = stream.connect(
 			config.stream.key,
-			config.stream.secret,
+			config.stream.secret
 		);
 
 		// instantiate a feed using feed class 'user' and the user id from the database
 		var flatFeed = streamClient.feed('timeline_flat', params.user_id);
 		var aggregatedFeed = streamClient.feed(
 			'timeline_aggregated',
-			params.user_id,
+			params.user_id
 		);
 
 		// stop following user

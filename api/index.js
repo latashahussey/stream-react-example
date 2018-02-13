@@ -71,7 +71,7 @@ server.use(restifyPlugins.fullResponse());
 server.use(
 	jwt({ secret: config.jwt.secret }).unless({
 		path: ['/users'],
-	}),
+	})
 );
 
 /**
@@ -101,6 +101,6 @@ server.listen(config.port, function() {
 		server.name,
 		config.version,
 		config.port,
-		config.env,
+		config.env
 	);
 });

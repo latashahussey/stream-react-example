@@ -55,7 +55,7 @@ server.get('/uploads', function(req, res, next) {
                     ON uploads.user_id = users.id
                     WHERE users.first_name = ${db.escape(userName[0])}
                         AND CONCAT(SUBSTR(users.last_name, 1, 1), '.') = ${db.escape(
-							userName[1],
+							userName[1]
 						)}
                 `;
 				break;
@@ -87,13 +87,13 @@ server.get('/uploads', function(req, res, next) {
 					// instantiate a new client (server side)
 					var streamClient = stream.connect(
 						config.stream.key,
-						config.stream.secret,
+						config.stream.secret
 					);
 
 					// instantiate a feed using feed class 'timeline_flat' and user id from params
 					var timelineFlatFeed = streamClient.feed(
 						'timeline_flat',
-						params.user_id,
+						params.user_id
 					);
 
 					cb(null, timelineFlatFeed);
@@ -120,7 +120,7 @@ server.get('/uploads', function(req, res, next) {
 
 							// enrich the activities
 							var references = streamUtils.referencesFromActivities(
-								stream.results,
+								stream.results
 							);
 							streamUtils.loadReferencedObjects(
 								references,
@@ -128,10 +128,10 @@ server.get('/uploads', function(req, res, next) {
 								function(referencedObjects) {
 									streamUtils.enrichActivities(
 										stream.results,
-										referencedObjects,
+										referencedObjects
 									);
 									cb(null, stream.results);
-								},
+								}
 							);
 						})
 						.catch(function(error) {
@@ -154,7 +154,7 @@ server.get('/uploads', function(req, res, next) {
 				// send response to client
 				res.send(200, result);
 				return next();
-			},
+			}
 		);
 	}
 });
@@ -236,7 +236,7 @@ server.post('/uploads', function(req, res, next) {
 				var knoxClient = knox.createClient({
 					key: config.s3.key,
 					secret: config.s3.secret,
-					bucket: config.s3.bucket,
+					bucket: config.s3.bucket
 				});
 
 				// send put via knox
@@ -253,7 +253,7 @@ server.post('/uploads', function(req, res, next) {
 						} else {
 							cb(null);
 						}
-					},
+					}
 				);
 			},
 
@@ -265,7 +265,7 @@ server.post('/uploads', function(req, res, next) {
 				// get location data
 				geo.geocode('mapbox.places', data.location, function(
 					err,
-					location,
+					location
 				) {
 					if (err) {
 						cb(err);
@@ -292,7 +292,7 @@ server.post('/uploads', function(req, res, next) {
 				// run query using node mysql, passing the data object as params
 				db.query('INSERT INTO uploads SET ?', data, function(
 					err,
-					result,
+					result
 				) {
 					if (err) {
 						cb(err);
@@ -301,7 +301,7 @@ server.post('/uploads', function(req, res, next) {
 						result = Object.assign(
 							{},
 							{ id: result.insertId },
-							data,
+							data
 						);
 
 						cb(null, result);
@@ -314,7 +314,7 @@ server.post('/uploads', function(req, res, next) {
 				// initialize algolia
 				var algolia = algoliaSearch(
 					config.algolia.appId,
-					config.algolia.apiKey,
+					config.algolia.apiKey
 				);
 
 				// initialize algoia index
@@ -331,7 +331,7 @@ server.post('/uploads', function(req, res, next) {
 				// instantiate a new client (server side)
 				var streamClient = stream.connect(
 					config.stream.key,
-					config.stream.secret,
+					config.stream.secret
 				);
 
 				// build activity object for stream feed
@@ -340,7 +340,7 @@ server.post('/uploads', function(req, res, next) {
 					verb: 'add',
 					object: `upload:${result.id}`,
 					foreign_id: `upload:${result.id}`,
-					time: data['created_at'],
+					time: data['created_at']
 				};
 
 				// instantiate a feed using feed class 'user_posts' and the user id from the database
@@ -372,6 +372,6 @@ server.post('/uploads', function(req, res, next) {
 			// respond to client with result from database
 			res.send(201, result);
 			return next();
-		},
+		}
 	);
 });

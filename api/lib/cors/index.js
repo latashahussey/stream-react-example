@@ -17,7 +17,7 @@ function cors(options) {
 			allowOrigins: null,
 			allowCreds: true,
 		},
-		options || {},
+		options || {}
 	);
 
 	const setHeader = (req, res, methods) => {
@@ -34,7 +34,7 @@ function cors(options) {
 					'Access-Control-Allow-Origin',
 					Array.isArray(opts.allowOrigins)
 						? opts.allowOrigins.join(', ')
-						: opts.allowOrigins,
+						: opts.allowOrigins
 				);
 			} else {
 				res.header('Access-Control-Allow-Origin', origin);
@@ -42,11 +42,11 @@ function cors(options) {
 
 			res.header(
 				'Access-Control-Allow-Methods',
-				opts.allowMethods.join(', '),
+				opts.allowMethods.join(', ')
 			);
 			res.header(
 				'Access-Control-Allow-Headers',
-				opts.allowHeaders.map(h => h.toUpperCase()).join(', '),
+				opts.allowHeaders.map(h => h.toUpperCase()).join(', ')
 			);
 		});
 	};

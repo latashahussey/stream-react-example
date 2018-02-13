@@ -84,7 +84,7 @@ server.get('/stats/:user_id', function(req, res, next) {
 							if (err) {
 								log.error(err);
 								return next(
-									new restify.InternalError(err.message),
+									new restify.InternalError(err.message)
 								);
 							}
 
@@ -99,10 +99,10 @@ server.get('/stats/:user_id', function(req, res, next) {
 							uploads.sort(compareUploads);
 
 							cb(null, uploads);
-						},
+						}
 					);
 				}
-			},
+			}
 		],
 		function(err, result) {
 			// catch all errors
@@ -117,6 +117,6 @@ server.get('/stats/:user_id', function(req, res, next) {
 			// send response to client
 			res.send(200, { mostViewed: result });
 			return next();
-		},
+		}
 	);
 });
