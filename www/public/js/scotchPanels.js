@@ -60,7 +60,7 @@
 		beforePanelOpen: function() {},
 		afterPanelOpen: function() {},
 		beforePanelClose: function() {},
-		afterPanelClose: function() {},
+		afterPanelClose: function() {}
 	};
 
 	$.fn.scotchPanel = function(options) {
@@ -149,13 +149,13 @@
 			$('.scotch-panel-wrapper').css({
 				position: 'relative',
 				overflow: 'hidden',
-				width: '100%',
+				width: '100%'
 			});
 			// Scotch Panel Canvas CSS
 			$('.scotch-panel-canvas').css({
 				position: 'relative',
 				height: '100%',
-				width: '100%',
+				width: '100%'
 			});
 			// Do 3D Stuff separate
 			if (panel.settings.useCSS) {
@@ -169,7 +169,7 @@
 					'-ms-backface-visibility': 'hidden',
 					'-o-backface-visibility': 'hidden',
 					'-webkit-backface-visibility': 'hidden',
-					'backface-visibility': 'hidden',
+					'backface-visibility': 'hidden'
 				});
 			}
 
@@ -184,7 +184,7 @@
 					width: '100%',
 					position: 'absolute',
 					'z-index': '888888',
-					overflow: 'hidden',
+					overflow: 'hidden'
 				});
 			}
 			if (panel.settings.direction == 'bottom') {
@@ -197,7 +197,7 @@
 					width: '100%',
 					position: 'absolute',
 					'z-index': '888888',
-					overflow: 'hidden',
+					overflow: 'hidden'
 				});
 			}
 			if (panel.settings.direction == 'left') {
@@ -210,7 +210,7 @@
 					height: '100%',
 					position: 'absolute',
 					'z-index': '888888',
-					overflow: 'hidden',
+					overflow: 'hidden'
 				});
 			}
 			if (panel.settings.direction == 'right') {
@@ -223,7 +223,7 @@
 					height: '100%',
 					position: 'absolute',
 					'z-index': '888888',
-					overflow: 'hidden',
+					overflow: 'hidden'
 				});
 			}
 			panel.css({
@@ -231,7 +231,7 @@
 				'-ms-backface-visibility': 'hidden',
 				'-o-backface-visibility': 'hidden',
 				'-webkit-backface-visibility': 'hidden',
-				'backface-visibility': 'hidden',
+				'backface-visibility': 'hidden'
 			});
 
 			// Photo Logic
@@ -244,7 +244,7 @@
 					'background-size': 'cover',
 					'background-position': '50% 0',
 					'background-repeat': 'no-repeat',
-					'background-image': 'url(' + panel.settings.imageURL + ')',
+					'background-image': 'url(' + panel.settings.imageURL + ')'
 				});
 
 				// Update Panel Height if top or bottom
@@ -263,7 +263,7 @@
 				panel.append(
 					'<iframe frameborder="0" style="width: 100%; height: 100%; display: block; position: relative; min-height: ' +
 						panel.settings.minHeight +
-						'" allowfullscreen></iframe>',
+						'" allowfullscreen></iframe>'
 				);
 
 				// Update Panel Height if top or bottom
@@ -302,7 +302,7 @@
 			if (has3d && hasTransitions) {
 				applyTransition(
 					panel.settings.transition,
-					panel.settings.duration,
+					panel.settings.duration
 				);
 			}
 
@@ -371,7 +371,7 @@
 				} else {
 					return false;
 				}
-			},
+			}               
 		};
 
 		// Toggle YouTube State (Play / Pause)
@@ -455,7 +455,7 @@
 				if (panel.settings.useEasingPlugin) {
 					panel.parents('.scotch-panel-canvas:first').animate(
 						{
-							top: distanceY + 'px',
+							top: distanceY + 'px'
 						},
 						{
 							duration: panel.settings.duration,
@@ -471,8 +471,8 @@
 								} else {
 									panel.settings.afterPanelClose();
 								}
-							},
-						},
+							}
+						}
 					);
 				} else {
 					panel.parents('.scotch-panel-canvas:first').animate({
@@ -512,7 +512,7 @@
 					'-moz-transform': 'translate3d(' + distanceX + ', 0, 0)',
 					'-o-transform': 'translate3d(' + distanceX + ', 0, 0)',
 					'-webkit-transform': 'translate3d(' + distanceX + ', 0, 0)',
-					transform: 'translate3d(' + distanceX + ', 0, 0)',
+					transform: 'translate3d(' + distanceX + ', 0, 0)'
 				});
 
 				setTimeout(function() {

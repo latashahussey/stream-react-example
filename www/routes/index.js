@@ -33,16 +33,16 @@ router.post(
 			{
 				id: config.mailchimp.listId,
 				email: {
-					email: params.email.toLowerCase(),
+					email: params.email.toLowerCase()
 				},
 				double_optin: false,
-				send_welcome: false,
+				send_welcome: false
 			},
 			function(err, data) {
 				res.sendStatus(200).end();
-			},
+			}
 		);
-	},
+	}
 );
 
 module.exports = router;
